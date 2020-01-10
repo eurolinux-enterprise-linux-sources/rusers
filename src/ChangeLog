@@ -1,0 +1,101 @@
+22-Jul-2000:
+	Fixed bug in rup: it wasn't able to print uptimes > 1 year. 
+	  (Stephen G. Roseman, sgr0@lehigh.edu)
+	Rearranged uptime printing logic in rup and added -s option
+	   to print times and uptimes in seconds for scripting.
+	Least privilege patches (and some other fixes) for rusersd
+	   from Olaf Kirch.
+
+21-May-2000:
+	Relax buffer paranoia a bit in rusersd to be able to send 
+	  8-character usernames. Should be safe. (Rune Andresen, 
+	  di990013@diku.dk)
+	
+14-Dec-1999:
+	netkit-rusers-0.16 is released.
+
+12-Dec-1999:
+	Backlogged fixes from Frodo Looijaard, frodol@dds.nl.
+
+1-Aug-1999:
+	Complete y2k and y2038 audit. Alas, we're not y2038-compliant.
+
+31-Jul-1999:
+	Redid makefiles/config stuff for new confgen version.
+
+12-Oct-1997:
+	Patches applied:
+	Robert Bihlmeyer <robbe@orcus.priv.at>
+		patches for compatibility with glibc 2.0.4's "rusers.x"
+	<askalski@acsu.buffalo.edu>
+		patches for strings which are not null-terminated
+	
+23-Sep-1997:
+	Fix suspicious strncpys in rusers.
+
+02-Aug-1997:
+	netkit-rusers-0.11 released.
+
+02-Aug-1997:
+	Fix buffer overrun security hole in rusers client.
+
+12-Jun-1997:
+	netkit-rusers-0.10 released.
+
+08-Jun-1997:
+	More adjustments for glibc.
+
+05-Apr-1997:
+	Added configure script to generate MCONFIG.
+	glibc fixes from HJ Lu.
+	rup now builds, thanks in part to HJ Lu.
+	Better utmp handling in rusersd.
+
+08-Mar-1997: 
+	Split from full NetKit package. 
+	Generated this change log from NetKit's.
+
+29-Dec-1996
+	NetKit-0.09 released.
+	Assorted alpha/glibc patches. (Erik Troan, ewt@redhat.com)
+	Assorted bug fixes from Debian. (Peter Tobias, 
+	  tobias@et-inf.fho-emden.de)
+	Hardened programs against DNS h_length spoofing attacks.
+	Use inet_aton() everywhere instead of inet_addr().
+
+22-Aug-1996
+	NetKit-B-0.08 released.
+	fixed rusers to use the right .x files with rpcgen.
+	fixed rusers and rwall to use rpcgen correctly.
+	(almost) everything now compiles with lots of warnings turned on.
+
+25-Jul-1996
+	NetKit-B-0.07A released.
+
+23-Jul-1996
+	NetKit-B-0.07 released.
+	Integrated a collection of patches that had been lurking on the net,
+	  including the 256-ptys support for telnetd and passive mode ftp.
+	Major security fixes, including to fingerd, lpr, rlogin, rsh, talkd, 
+	  and telnetd. Do *not* use the sliplogin from earlier versions of this
+	  package, either.
+	Much of the code builds without libbsd.a or bsd includes.
+	Massive code cleanup. Almost everything compiles clean with gcc
+	  -Wall now. rusers and rusersd do not; patches to rpcgen to fix
+	  this would be appreciated if anyone feels like it.
+	New maintainer:  David A. Holland, dholland@hcs.harvard.edu
+
+date not known
+	NetKit-B-0.06 released.
+
+date not known
+	NetKit-B-0.05 released.
+
+date not known
+	NetKit-B-0.04 released.
+
+date not known
+	NetKit-B-0.03 released.
+	Changed rusers, rpc.ruserd, rwall, rpc.rwalld, rwho, rwhod to not
+	  require to copy ./include/*.h files into /usr/include
+
