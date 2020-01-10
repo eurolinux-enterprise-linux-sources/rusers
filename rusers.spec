@@ -5,8 +5,9 @@
 Summary: Displays the users logged into machines on the local network
 Name: rusers
 Version: 0.17
-Release: 59%{?dist}
+Release: 61%{?dist}
 License: BSD
+Url: http://rstatd.sourceforge.net/
 Group: System Environment/Daemons
 Source: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-rusers-%{version}.tar.gz
 Source1: rusersd.init
@@ -28,6 +29,7 @@ Patch12: netkit-rusers-0.17-bigendian.patch
 Patch13: netkit-rusers-0.17-return.patch
 Patch14: netkit-rusers-0.17-procdiskstats.patch
 Patch15: netkit-rusers-0.17-rusersd-droppriv.patch
+Requires: /sbin/chkconfig /etc/init.d
 Buildroot: %{_tmppath}/%{name}-root
 BuildRequires: procps libselinux-devel
 
@@ -41,7 +43,7 @@ Install rusers if you need to keep track of who is logged into your
 local network.
 
 %package server
-Summary: Server for the rusers protocol.
+Summary: Server for the rusers protocol
 Group: System Environment/Daemons
 Requires(pre): /sbin/chkconfig
 Requires: portmap
@@ -143,10 +145,21 @@ fi
 %{_mandir}/man8/*
 %{_sbindir}/rpc.rstatd
 %{_sbindir}/rpc.rusersd
-%config /etc/rc.d/init.d/rusersd
-%config /etc/rc.d/init.d/rstatd
+%{_initrddir}/rusersd
+%{_initrddir}/rstatd
 
 %changelog
+* Tue Feb 21 2012 Honza Horak <hhorak@redhat.com> - 0.17-61
+- lockfiles/pidfiles renamed back to rpc-prefixed names
+  Resolves: #697862
+
+* Mon Feb 06 2012 Honza Horak <hhorak@redhat.com> - 0.17-60
+- fixed .include patch which had not been aplicable
+- fixed rusersd and rstatd initscripts
+  Resolves: #697862
+- fixed rpmlint errors and warnings
+  Resolves: #634922
+
 * Fri Feb 26 2010 Jiri Moskovcak <jmoskovc@redhat.com> - 0.17-59
 - added README
 - Related: #543948
