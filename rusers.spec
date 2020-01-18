@@ -5,11 +5,11 @@
 Summary: Displays the users logged into machines on the local network
 Name: rusers
 Version: 0.17
-Release: 79%{?dist}
+Release: 81%{?dist}
 License: BSD
 Url: http://rstatd.sourceforge.net/
 Group: System Environment/Daemons
-Source: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-rusers-%{version}.tar.gz
+Source: http://ftp.linux.org.uk/pub/linux/Networking/netkit/netkit-rusers-%{version}.tar.gz
 Source1: rusersd.service
 Source2: rstatd.tar.gz
 Source3: rstatd.service
@@ -33,6 +33,9 @@ Patch15: rusers-0.17-rusersd-droppriv.patch
 Patch16: rusers-0.17-new-rpc-license.patch
 Patch17: rusers-0.17-manhelp.patch
 Patch18: rusers-0.17-freerpc.patch
+Patch19: rstatd-man.patch
+# Provide the BSD 3-clause license text as COPYING file
+Patch20: rusers-0.17-license.patch
 BuildRequires: procps libselinux-devel
 
 %description
@@ -86,6 +89,8 @@ who is logged into your machine.
 %patch16 -p1 -b .licensefix
 %patch17 -p1 -b .manhelp
 %patch18 -p1 -b .freerpc
+%patch19 -p1 -b .rstatd-man
+%patch20 -p1 -b .license
 
 %build
 cat > MCONFIG <<EOF
@@ -126,8 +131,8 @@ mkdir -p ${RPM_BUILD_ROOT}%{_unitdir}
 make INSTALLROOT=${RPM_BUILD_ROOT} install
 make INSTALLROOT=${RPM_BUILD_ROOT} install -C rpc.rstatd
 
-install %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}/rusersd.service
-install %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
+install -m 0644 %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}/rusersd.service
+install -m 0644 %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
 
 %post server
 %systemd_post rstatd.service
@@ -142,12 +147,13 @@ install %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
 %systemd_postun_with_restart rusersd.service
 
 %files
-%doc README
+%doc README COPYING
 %{_bindir}/rup
 %{_bindir}/rusers
 %{_mandir}/man1/*
 
 %files server
+%doc COPYING
 %{_mandir}/man8/*
 %{_sbindir}/rpc.rstatd
 %{_sbindir}/rpc.rusersd
@@ -155,6 +161,14 @@ install %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
 %{_unitdir}/rstatd.service
 
 %changelog
+* Tue Feb 21 2017 Petr Kubat <pkubat@redhat.com> - 0.17-81
+- Remove execute permissions from *.service files (#1422022)
+- Fix wrong Source url (#1418690)
+- Add BSD license text (#1418686)
+
+* Wed Dec 14 2016 Petr Kubat <pkubat@redhat.com> - 0.17-80
+- Remove mention of 'rpc.lockd' from rstatd man page (#1374436)
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.17-79
 - Mass rebuild 2014-01-24
 
