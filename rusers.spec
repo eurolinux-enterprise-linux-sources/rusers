@@ -5,7 +5,7 @@
 Summary: Displays the users logged into machines on the local network
 Name: rusers
 Version: 0.17
-Release: 77%{?dist}
+Release: 79%{?dist}
 License: BSD
 Url: http://rstatd.sourceforge.net/
 Group: System Environment/Daemons
@@ -155,6 +155,12 @@ install %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
 %{_unitdir}/rstatd.service
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 0.17-79
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 0.17-78
+- Mass rebuild 2013-12-27
+
 * Fri Jul 26 2013 Honza Horak <hhorak@redhat.com> - 0.17-77
 - Free already alocated memory when parsing of RPC request failed
 - Require systemd instead of systemd-units
